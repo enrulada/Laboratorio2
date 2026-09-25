@@ -1,5 +1,17 @@
-import { View, Text, Pressable, ScrollView } from 'react-native';
+import { View, Text, Pressable, FlatList } from 'react-native';
 import { useRouter } from 'expo-router';
+
+type Materia = {
+  id: number;
+  nombre: string;
+  icono: string;
+};
+
+const materias: Materia[] = [
+  { id: 1, nombre: 'Matemática', icono: '📐' },
+  { id: 2, nombre: 'Programación', icono: '💻' },
+  { id: 3, nombre: 'Base de Datos', icono: '🗄️' },
+];
 
 export default function MateriasScreen() {
   const router = useRouter();
@@ -15,12 +27,10 @@ export default function MateriasScreen() {
   };
 
   return (
-    <ScrollView
+    <View
       style={{
         flex: 1,
         backgroundColor: '#F5F7FA',
-      }}
-      contentContainerStyle={{
         padding: 25,
       }}
     >
@@ -46,62 +56,30 @@ export default function MateriasScreen() {
         Seleccioná una materia para consultar sus apuntes.
       </Text>
 
-      <Pressable
-        onPress={() => abrirMateria(1, 'Matemática')}
-        style={{
-          backgroundColor: '#FFFFFF',
-          padding: 20,
-          borderRadius: 10,
-          marginBottom: 15,
-        }}
-      >
-        <Text
-          style={{
-            fontSize: 18,
-            fontWeight: 'bold',
-          }}
-        >
-          📐 Matemática
-        </Text>
-      </Pressable>
-
-      <Pressable
-        onPress={() => abrirMateria(2, 'Programación')}
-        style={{
-          backgroundColor: '#FFFFFF',
-          padding: 20,
-          borderRadius: 10,
-          marginBottom: 15,
-        }}
-      >
-        <Text
-          style={{
-            fontSize: 18,
-            fontWeight: 'bold',
-          }}
-        >
-          💻 Programación
-        </Text>
-      </Pressable>
-
-      <Pressable
-        onPress={() => abrirMateria(3, 'Base de Datos')}
-        style={{
-          backgroundColor: '#FFFFFF',
-          padding: 20,
-          borderRadius: 10,
-          marginBottom: 15,
-        }}
-      >
-        <Text
-          style={{
-            fontSize: 18,
-            fontWeight: 'bold',
-          }}
-        >
-          🗄️ Base de Datos
-        </Text>
-      </Pressable>
+      <FlatList
+        data={materias}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
+          <Pressable
+            onPress={() => abrirMateria(item.id, item.nombre)}
+            style={{
+              backgroundColor: '#FFFFFF',
+              padding: 20,
+              borderRadius: 10,
+              marginBottom: 15,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 18,
+                fontWeight: 'bold',
+              }}
+            >
+              {item.icono} {item.nombre}
+            </Text>
+          </Pressable>
+        )}
+      />
 
       <Pressable
         onPress={() => router.back()}
@@ -121,6 +99,6 @@ export default function MateriasScreen() {
           ← Volver
         </Text>
       </Pressable>
-    </ScrollView>
+    </View>
   );
 }
