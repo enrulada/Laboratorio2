@@ -4,11 +4,17 @@ import styled from 'styled-components/native';
 import Card from '../../src/components/Card';
 import type { AppTheme } from '../../src/theme/theme';
 import { useAppTheme } from '../../src/context/ThemeContext';
+import { useFavoritosStore } from '../../src/store/favoritosStore';
 
 export default function DashboardScreen() {
   const router = useRouter();
 
   const { isDarkTheme, toggleTheme } = useAppTheme();
+
+  const cantidadFavoritos = useFavoritosStore(
+    (state) =>
+      state.contenidos.filter((contenido) => contenido.favorito).length
+  );
 
   return (
     <Container contentContainerStyle={{ paddingBottom: 40 }}>
@@ -44,7 +50,7 @@ export default function DashboardScreen() {
 
       <Card
         titulo="⭐ Favoritos"
-        descripcion="Accedé rápidamente a tus contenidos."
+        descripcion={`Tenés ${cantidadFavoritos} contenidos favoritos.`}
         onPress={() => router.push('/favoritos')}
       />
     </Container>

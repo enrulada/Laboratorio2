@@ -1,55 +1,15 @@
 import { View, Text, Pressable, FlatList } from 'react-native';
-import { useState } from 'react';
 import { useRouter } from 'expo-router';
 
-type Contenido = {
-  id: number;
-  nombre: string;
-  materia: string;
-  favorito: boolean;
-};
-
-const datosIniciales: Contenido[] = [
-  {
-    id: 1,
-    nombre: 'Resumen de Matemática',
-    materia: 'Matemática',
-    favorito: true,
-  },
-  {
-    id: 2,
-    nombre: 'Ejercicios de Programación',
-    materia: 'Programación',
-    favorito: false,
-  },
-  {
-    id: 3,
-    nombre: 'Guía de Base de Datos',
-    materia: 'Base de Datos',
-    favorito: true,
-  },
-];
+import { useFavoritosStore } from '../../src/store/favoritosStore';
 
 export default function FavoritosScreen() {
   const router = useRouter();
 
-  const [contenidos, setContenidos] =
-    useState<Contenido[]>(datosIniciales);
-
-  const cambiarFavorito = (id: number) => {
-    const nuevosContenidos = contenidos.map((contenido) => {
-      if (contenido.id === id) {
-        return {
-          ...contenido,
-          favorito: !contenido.favorito,
-        };
-      }
-
-      return contenido;
-    });
-
-    setContenidos(nuevosContenidos);
-  };
+  const contenidos = useFavoritosStore((state) => state.contenidos);
+  const cambiarFavorito = useFavoritosStore(
+    (state) => state.cambiarFavorito
+  );
 
   return (
     <View

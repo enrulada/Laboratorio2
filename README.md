@@ -1,3 +1,4 @@
+
 # StudentHub
 
 ## Aplicación móvil educativa
@@ -10,7 +11,45 @@ El proyecto se encuentra actualmente en desarrollo y evoluciona progresivamente 
 
 ---
 
-## Problemática que aborda
+# Información para el corte evaluativo
+
+## Integrantes del grupo
+
+- Brovelli Erica
+- Cid Juan Cruz
+
+---
+
+## Features implementadas
+
+| Feature | Descripción | Estado |
+|---|---|---|
+| Login | Permite ingresar a StudentHub mediante email y contraseña. | ✅ Implementada |
+| Inicio | Pantalla de acceso inicial luego del Login. | ✅ Implementada |
+| Dashboard | Centraliza los principales accesos de StudentHub. | ✅ Implementada |
+| Mis Materias | Permite consultar las materias disponibles mediante una lista. | ✅ Implementada |
+| Mis Apuntes | Permite visualizar apuntes correspondientes a una materia seleccionada. | ✅ Implementada con datos locales |
+| Favoritos | Permite marcar y desmarcar contenidos utilizando estado global con Zustand. | ✅ Implementada con datos locales |
+| Tema claro/oscuro | Permite modificar la apariencia del Dashboard. | ✅ Implementada |
+| Gradientes visuales | Se aplicó LinearGradient a las tarjetas principales del Dashboard. | ✅ Implementada |
+
+---
+
+## Features pendientes
+
+| Feature | Estado |
+|---|---|
+| Próximos Exámenes | 🟡 En desarrollo |
+| Integración de las funcionalidades académicas con el backend/API | ⏳ Pendiente |
+| Uso de TanStack Query para datos provenientes del servidor | ⏳ Pendiente |
+| Persistencia de Favoritos | ⏳ Pendiente |
+| Ampliación del contenido de Materias y Apuntes | ⏳ Pendiente |
+
+> Las funcionalidades académicas desarrolladas actualmente utilizan datos locales. La integración completa con la API/backend se realizará progresivamente en próximas etapas del proyecto.
+
+---
+
+# Problemática que aborda
 
 StudentHub surge ante la necesidad de contar con una herramienta que permita al estudiante organizar de manera sencilla la información relacionada con su actividad académica.
 
@@ -24,16 +63,9 @@ La aplicación busca facilitar:
 
 ---
 
-## Integrantes
+# Tecnologías utilizadas
 
-- Brovelli Erica
-- Cid Juan Cruz
-
----
-
-## Tecnologías utilizadas
-
-### Frontend
+## Frontend
 
 - React Native
 - Expo
@@ -41,8 +73,10 @@ La aplicación busca facilitar:
 - TypeScript
 - Styled Components
 - React Hooks
+- Expo LinearGradient
+- Zustand
 
-### Backend
+## Backend
 
 - Go
 - MySQL
@@ -51,21 +85,6 @@ La aplicación busca facilitar:
 - bcrypt
 
 > Actualmente, las funcionalidades académicas desarrolladas durante las clases utilizan datos locales. La integración completa de estas funcionalidades con el backend se realizará en etapas posteriores.
-
----
-
-## Funcionalidades actuales
-
-| Funcionalidad | Descripción | Estado |
-|---|---|---|
-| Login | Permite ingresar a StudentHub mediante email y contraseña. | Implementado |
-| Inicio | Pantalla de acceso inicial luego del Login. | Implementado |
-| Dashboard | Centraliza los principales accesos de StudentHub. | Implementado |
-| Mis Materias | Muestra las materias disponibles mediante una lista. | Implementado |
-| Mis Apuntes | Permite visualizar apuntes correspondientes a una materia seleccionada. | Implementado con datos locales |
-| Próximos Exámenes | Pantalla destinada a la organización de evaluaciones. | En desarrollo |
-| Favoritos | Permite marcar y desmarcar contenidos como favoritos. | Implementado con datos locales |
-| Tema claro/oscuro | Permite modificar la apariencia del Dashboard. | Implementado |
 
 ---
 
@@ -97,7 +116,9 @@ StudentHub cuenta actualmente con rutas para:
 - Exámenes
 - Favoritos
 
-Se utilizan diferentes formas de navegación, por ejemplo:
+Se utilizan diferentes formas de navegación.
+
+Ejemplo:
 
 ```tsx
 router.push('/materias');
@@ -131,6 +152,7 @@ Durante el desarrollo de StudentHub se utilizaron diferentes componentes de Reac
 - `TouchableOpacity`
 - `ActivityIndicator`
 - `FlatList`
+- `ScrollView`
 
 ---
 
@@ -229,15 +251,17 @@ También se utiliza `FlatList` para mostrar los apuntes y los contenidos de Favo
 
 ## useState
 
-Se utiliza `useState` para manejar información que puede cambiar durante la ejecución de la aplicación.
+Durante la Clase 2 se utilizó `useState` para manejar información que puede cambiar durante la ejecución de la aplicación.
 
-En la pantalla **Favoritos**, por ejemplo, se mantiene el estado de los contenidos y se permite modificar si un elemento está marcado o no como favorito.
+Inicialmente, la pantalla **Favoritos** utilizó `useState` para mantener el estado local de los contenidos.
+
+Posteriormente, durante la Clase 3, esta implementación evolucionó y el estado de Favoritos fue trasladado a un store global utilizando **Zustand**.
 
 ---
 
 ## Actualización inmutable del estado
 
-Para modificar los favoritos se utiliza `.map()` junto con el operador spread (`...`).
+Durante la implementación inicial de Favoritos se trabajó con `.map()` junto con el operador spread (`...`) para modificar los elementos sin alterar directamente el arreglo original.
 
 Ejemplo:
 
@@ -252,11 +276,9 @@ const nuevosContenidos = contenidos.map((contenido) => {
 
   return contenido;
 });
-
-setContenidos(nuevosContenidos);
 ```
 
-De esta manera se genera un nuevo arreglo sin modificar directamente el estado original.
+Este mismo concepto de actualización inmutable continúa utilizándose dentro del store de Zustand.
 
 ---
 
@@ -323,18 +345,18 @@ De esta manera la aplicación puede indicar visualmente que existe un proceso de
 
 ---
 
-## Favoritos
+## Favoritos — implementación inicial
 
-La pantalla **Favoritos** permite marcar y desmarcar contenidos.
+Durante la Clase 2 se desarrolló la primera versión de la pantalla **Favoritos**.
 
-Al tocar un contenido, su estado puede cambiar entre:
+La pantalla permite cambiar un contenido entre:
 
 ```text
 ☆ No favorito
 ⭐ Favorito
 ```
 
-Esta funcionalidad permite aplicar los conceptos de:
+En esta primera implementación se aplicaron conceptos como:
 
 - `useState`
 - `FlatList`
@@ -342,6 +364,8 @@ Esta funcionalidad permite aplicar los conceptos de:
 - `.map()`
 - Operador spread
 - Actualización inmutable del estado
+
+Durante la Clase 3 esta funcionalidad fue mejorada utilizando Zustand para manejar los favoritos mediante estado global.
 
 ---
 
@@ -361,25 +385,186 @@ Este enlace se encuentra en la pantalla **Mis Apuntes** y permite regresar direc
 
 ---
 
+# Implementación de contenidos — Clase 3
+
+Durante la **Clase 3** se trabajaron nuevos conceptos relacionados con la interfaz visual, el manejo de estado global y la administración de datos provenientes de servicios externos.
+
+Los conceptos fueron adaptados al contexto académico de StudentHub.
+
+---
+
+## LinearGradient
+
+Se incorporó la dependencia:
+
+```text
+expo-linear-gradient
+```
+
+Se utilizó `LinearGradient` para mejorar visualmente las tarjetas del Dashboard.
+
+Las tarjetas:
+
+- Mis Materias
+- Mis Apuntes
+- Próximos Exámenes
+- Favoritos
+
+utilizan actualmente un degradado de colores.
+
+Ejemplo:
+
+```tsx
+<LinearGradient
+  colors={['#2563EB', '#60A5FA']}
+  start={{ x: 0, y: 0 }}
+  end={{ x: 1, y: 1 }}
+>
+  {/* contenido de la tarjeta */}
+</LinearGradient>
+```
+
+Esta implementación permite aplicar un degradado desde un azul más intenso hacia un azul más claro.
+
+El componente fue integrado dentro del componente reutilizable `Card.tsx`, permitiendo que todas las tarjetas principales del Dashboard compartan el mismo estilo.
+
+---
+
+## Zustand
+
+Se incorporó:
+
+```text
+zustand
+```
+
+para trabajar con estado global dentro de StudentHub.
+
+Durante la Clase 2, Favoritos utilizaba inicialmente `useState` dentro de la propia pantalla.
+
+Durante la Clase 3 esta implementación fue modificada para utilizar un store global.
+
+Se creó:
+
+```text
+src/store/favoritosStore.ts
+```
+
+El store contiene:
+
+- La lista de contenidos.
+- El estado favorito de cada contenido.
+- La función para marcar o desmarcar un favorito.
+
+Ejemplo simplificado:
+
+```tsx
+export const useFavoritosStore = create<FavoritosStore>((set) => ({
+  contenidos: [
+    // contenidos académicos
+  ],
+
+  cambiarFavorito: (id) =>
+    set((state) => ({
+      contenidos: state.contenidos.map((contenido) =>
+        contenido.id === id
+          ? {
+              ...contenido,
+              favorito: !contenido.favorito,
+            }
+          : contenido
+      ),
+    })),
+}));
+```
+
+---
+
+## Estado global de Favoritos
+
+La pantalla **Favoritos** consume actualmente el store global:
+
+```tsx
+const contenidos = useFavoritosStore(
+  (state) => state.contenidos
+);
+
+const cambiarFavorito = useFavoritosStore(
+  (state) => state.cambiarFavorito
+);
+```
+
+Esto permite separar el estado de la pantalla y mantenerlo disponible para otros componentes de StudentHub.
+
+---
+
+## Estado compartido entre Favoritos y Dashboard
+
+El Dashboard también utiliza `useFavoritosStore`.
+
+De esta manera puede calcular dinámicamente la cantidad de contenidos marcados como favoritos:
+
+```tsx
+const cantidadFavoritos = useFavoritosStore(
+  (state) =>
+    state.contenidos.filter(
+      (contenido) => contenido.favorito
+    ).length
+);
+```
+
+La tarjeta de Favoritos muestra la cantidad actual:
+
+```tsx
+descripcion={`Tenés ${cantidadFavoritos} contenidos favoritos.`}
+```
+
+Esta implementación permite comprobar el funcionamiento del estado global.
+
+Por ejemplo:
+
+- Si existen 2 favoritos, el Dashboard muestra 2.
+- Si se desmarca uno, el Dashboard actualiza el valor a 1.
+- Si se marcan los tres contenidos, el Dashboard actualiza el valor a 3.
+
+La actualización se realiza sin necesidad de pasar manualmente los datos entre las pantallas.
+
+---
+
+## TanStack Query
+
+Durante la Clase 3 también se trabajó el concepto de **TanStack Query** para administrar información proveniente de APIs o servicios externos.
+
+En StudentHub todavía no se implementó TanStack Query porque las funcionalidades académicas actuales continúan trabajando con datos locales.
+
+Su implementación queda prevista para la etapa en la que Materias, Apuntes u otras funcionalidades consuman información real desde la API/backend.
+
+De esta manera se evita incorporar una consulta externa artificial únicamente para reproducir el ejemplo visto en clase.
+
+---
+
 # Adaptación de los ejemplos trabajados en clase
 
-Los ejemplos desarrollados durante las clases fueron utilizados como referencia para comprender los conceptos de React Native y Expo.
+Los ejemplos desarrollados durante las clases fueron utilizados como referencia para comprender los conceptos de React Native, Expo y manejo de estado.
 
 Estos conceptos fueron adaptados al contexto de StudentHub en lugar de reproducir literalmente los ejemplos demostrativos.
 
-Por ejemplo, el ejemplo trabajado en clase utilizando información de **Pokémon** fue adaptado a información académica de StudentHub.
+Por ejemplo, los ejercicios realizados en clase utilizando información de **Pokémon** fueron adaptados a información académica de StudentHub.
 
 De esta manera:
 
 - `FlatList` se aplicó a materias, apuntes y favoritos.
-- `useState` se aplicó al manejo de favoritos.
-- `.map()` y el operador spread se utilizaron para modificar el estado de los favoritos.
+- `useState` se utilizó inicialmente para trabajar el estado local.
+- `.map()` y el operador spread se aplicaron a la actualización de favoritos.
 - `useEffect` se aplicó a la carga de apuntes.
 - `ActivityIndicator` se utilizó durante el proceso de carga.
 - `Link` se utilizó para navegar entre Apuntes y Materias.
+- `LinearGradient` se aplicó a las tarjetas académicas del Dashboard.
+- Zustand se aplicó al estado global de Favoritos.
+- El Dashboard y Favoritos comparten información mediante el mismo store.
 - Los datos utilizados corresponden al contexto académico de StudentHub.
 
-El objetivo fue aplicar los mismos conceptos enseñados durante la clase, pero adaptándolos a las necesidades reales del proyecto.
+El objetivo fue aplicar los conceptos enseñados durante las clases adaptándolos a las necesidades reales del proyecto.
 
 ---
 
@@ -394,11 +579,13 @@ El proyecto contempla el uso de:
 - bcrypt
 - JWT
 
-Actualmente, las funcionalidades académicas trabajadas durante la Clase 2 utilizan datos locales.
+Actualmente, las funcionalidades académicas trabajadas durante las Clases 2 y 3 utilizan datos locales.
 
-Por el momento no se implementó `fetch` para obtener materias, apuntes o favoritos desde el backend.
+Por el momento no se implementó la consulta de materias, apuntes o favoritos desde el backend.
 
 La conexión de estas funcionalidades con la API queda prevista para una etapa posterior del proyecto.
+
+Cuando se realice esta integración se evaluará la incorporación de **TanStack Query** para administrar los datos provenientes del servidor.
 
 ---
 
@@ -436,9 +623,14 @@ StudentHub_Lab2/
     ├── src/
     │   ├── assets/
     │   ├── components/
+    │   │   ├── Card.tsx
+    │   │   └── Title.tsx
     │   ├── context/
     │   ├── services/
-    │   └── theme/
+    │   ├── store/
+    │   │   └── favoritosStore.ts
+    │   ├── theme/
+    │   └── styled.d.ts
     │
     ├── app.json
     ├── package.json
@@ -451,7 +643,7 @@ StudentHub_Lab2/
 
 StudentHub se encuentra actualmente en desarrollo.
 
-Los contenidos correspondientes a las **Clases 1 y 2** fueron incorporados progresivamente y adaptados a la temática educativa del proyecto.
+Los contenidos correspondientes a las **Clases 1, 2 y 3** fueron incorporados progresivamente y adaptados a la temática educativa del proyecto.
 
 Actualmente se encuentran implementados y probados:
 
@@ -465,24 +657,42 @@ Actualmente se encuentran implementados y probados:
 - Pantalla Mis Apuntes.
 - Datos locales para apuntes.
 - Listados mediante `FlatList`.
-- Manejo de estado mediante `useState`.
+- Uso de `useState`.
 - Uso de `useEffect`.
 - Programación asíncrona mediante `async/await`.
 - Manejo de `try/catch/finally`.
 - Indicador de carga mediante `ActivityIndicator`.
+- Navegación declarativa mediante `Link`.
+- Tarjetas con `LinearGradient`.
+- Estado global mediante Zustand.
+- Store global de Favoritos.
 - Favoritos interactivos.
 - Actualización inmutable mediante `.map()` y spread.
-- Navegación declarativa mediante `Link`.
+- Estado compartido entre Favoritos y Dashboard.
+- Contador dinámico de contenidos favoritos.
+
+Las funcionalidades desarrolladas fueron probadas en el proyecto y se verificó el funcionamiento de la navegación entre las pantallas principales.
 
 ---
 
-# Próximas mejoras
+# Features pendientes
 
 Como próximas etapas del proyecto se prevé:
 
+- Desarrollar y ampliar la Feature de Próximos Exámenes.
 - Integrar las funcionalidades académicas con el backend.
-- Incorporar `fetch` para consumir información desde la API.
-- Desarrollar la funcionalidad de Próximos Exámenes.
+- Consumir información real desde la API.
+- Incorporar TanStack Query cuando se realice la integración con datos del servidor.
 - Ampliar el contenido de materias y apuntes.
 - Persistir los favoritos.
 - Continuar incorporando los contenidos correspondientes a las próximas clases de Laboratorio 2.
+
+---
+
+# Observación
+
+StudentHub es un proyecto en desarrollo.
+
+Las Features implementadas actualmente representan el avance realizado durante las primeras clases de Laboratorio 2.
+
+Las funcionalidades pendientes se incorporarán progresivamente a medida que avance el desarrollo del proyecto y se integren nuevos contenidos trabajados durante la materia.
