@@ -696,3 +696,112 @@ StudentHub es un proyecto en desarrollo.
 Las Features implementadas actualmente representan el avance realizado durante las primeras clases de Laboratorio 2.
 
 Las funcionalidades pendientes se incorporarán progresivamente a medida que avance el desarrollo del proyecto y se integren nuevos contenidos trabajados durante la materia.
+
+# Implementación de contenidos — última clase
+
+Durante esta  Clase  de Laboratorio 2 se trabajó con distintas APIs y funcionalidades de React Native y Expo.
+
+La consigna del profesor consistió en incorporar dos funcionalidades de la clase al proyecto desarrollado por cada grupo.
+
+En StudentHub se seleccionaron las APIs `expo-camera` y `expo-image-picker`, adaptándolas a una necesidad propia de la aplicación educativa: permitir que los estudiantes incorporen fotografías de sus apuntes.
+
+## Captura de fotografías — expo-camera
+
+Se incorporó la biblioteca `expo-camera` en la pantalla **Mis Apuntes**.
+
+Esta funcionalidad permite:
+
+- Solicitar permiso para utilizar la cámara del dispositivo.
+- Acceder a una cámara disponible.
+- Capturar una fotografía de un apunte.
+- Mostrar la fotografía capturada dentro de StudentHub.
+
+**Estado:** implementada y probada con una cámara conectada a la computadora.
+
+## Selección de imágenes — expo-image-picker
+
+Se incorporó la biblioteca `expo-image-picker` para seleccionar fotografías almacenadas en el dispositivo.
+
+Esta funcionalidad permite:
+
+- Abrir el selector de imágenes.
+- Elegir una fotografía existente.
+- Mostrar la imagen seleccionada en la pantalla Mis Apuntes.
+
+**Estado:** implementada y probada correctamente.
+
+## Animaciones — Animated
+
+Como funcionalidad adicional, se utilizó `Animated` de React Native para mostrar una confirmación visual cuando se incorpora una fotografía.
+
+La aplicación presenta el mensaje:
+
+**¡Apunte agregado correctamente!**
+
+Esta animación proporciona una respuesta visual al estudiante y mejora la experiencia de uso.
+
+**Estado:** implementada y probada correctamente.
+
+## Eliminación de fotografías
+
+Se agregó un botón que permite eliminar la fotografía mostrada en Mis Apuntes.
+
+Esta opción funciona tanto con imágenes capturadas mediante la cámara como con imágenes seleccionadas desde la galería.
+
+**Estado:** implementada y probada correctamente.
+
+## Modo demostración
+
+Se incorporó en la pantalla de inicio de sesión el botón **Entrar en modo demostración**.
+
+Este acceso permite recorrer las funcionalidades académicas de StudentHub sin iniciar el backend, facilitando las pruebas y la evaluación del proyecto.
+
+El inicio de sesión tradicional permanece dentro de la aplicación.
+
+## Archivos modificados
+
+Las funcionalidades de esta Clase  se implementaron principalmente en:
+
+- `frontend/app/(principal)/apuntes.tsx`
+- `frontend/app/login.tsx`
+- `frontend/package.json`
+- `frontend/package-lock.json`
+
+## Pruebas realizadas
+
+Se verificó el funcionamiento de:
+
+- Captura de fotografías mediante una cámara USB.
+- Selección de imágenes desde la galería.
+- Visualización de las fotografías.
+- Eliminación de fotografías.
+- Animación de confirmación.
+- Acceso a la aplicación mediante el modo demostración.
+
+También se ejecutó el comando `npx tsc --noEmit`, sin errores de TypeScript.
+
+## Alcance actual
+
+Las fotografías se administran temporalmente durante la ejecución de la aplicación. Todavía no se almacenan de forma permanente ni se envían al backend.
+
+La persistencia de fotografías y la integración con los servicios del servidor quedan previstas para futuras etapas.
+
+## Ejecución de StudentHub
+
+Para ejecutar el frontend:
+
+```bash
+cd frontend
+npm install --legacy-peer-deps
+npx expo start --web
+```
+
+Una vez abierta la aplicación en el navegador, seleccionar **Entrar en modo demostración** y acceder a **Mis Apuntes**.
+
+Para utilizar la cámara es necesario contar con un dispositivo compatible y conceder los permisos correspondientes.
+
+---
+
+**Conclusión de la última clase**
+
+StudentHub incorpora las dos funcionalidades solicitadas por el profesor, aplicando `expo-camera` y `expo-image-picker` al manejo de apuntes académicos. Adicionalmente, incorpora una animación de confirmación mediante `Animated` y la posibilidad de eliminar fotografías.
